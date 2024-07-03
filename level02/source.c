@@ -9,9 +9,12 @@ int __fastcall main(int argc, const char **argv, const char **envp)
   FILE *stream; // [rsp+118h] [rbp-8h]
 
   memset(s, 0, sizeof(s));
+  // 0x7fffffffe520
   v8 = 0;
   memset(ptr, 0, 41);
+  // 0x7fffffffe4f0
   memset(s2, 0, sizeof(s2));
+  // 0x7fffffffe488
   v5 = 0;
   stream = 0LL;
   v9 = 0;
