@@ -9,7 +9,7 @@ Oh no... we can't really use `gdb`..
 
 `ERROR: failed to open password file`
 
-```
+```C
  if ( strncmp(ptr, s2, 0x29uLL) )
   {
     printf(s);
