@@ -12,6 +12,7 @@ matrix:
   - pyspelling.filters.markdown:
       markdown_extensions:
       - markdown.extensions.extra:
+      - pymdownx.superfences:
   - pyspelling.filters.html:
       comments: false
       attributes:
@@ -24,4 +25,3 @@ matrix:
   sources:
   - '*.md'
   - '**/*.md'
-  
