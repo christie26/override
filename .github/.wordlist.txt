@@ -4,3 +4,12 @@ asm
 gdb
 vm
 breakpoint
+shellcode
+Shellcode
+dat
+textbackslash
+wil
+xa
+EIP
+texttt
+xffffd

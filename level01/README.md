@@ -132,7 +132,7 @@ $$
 
 ## Resolution
 
-Information recolected:
+Information recollected:
 - User inputs
     - Username `fgets` input.
         - **Buffer size** of 256.
