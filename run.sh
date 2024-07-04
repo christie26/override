@@ -1,3 +1,5 @@
+#!/bin/env bash
+
 qemu-system-x86_64 \
 -accel hvf \
 -cdrom Override.iso \
