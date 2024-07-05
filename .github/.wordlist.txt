@@ -4,3 +4,13 @@ asm
 gdb
 vm
 breakpoint
+shellcode
+dat
+textbackslash
+wil
+xa
+EIP
+texttt
+xffffd
+rl
+SpellChecking
