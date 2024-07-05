@@ -13,3 +13,4 @@ EIP
 texttt
 xffffd
 rl
+SpellChecking
