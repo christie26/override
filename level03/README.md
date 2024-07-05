@@ -40,12 +40,12 @@ Using an **XOR** value of **18** will decode the string to `"Congratulations!"`.
 
 To control the input sent to the `decrypt()` function, the result of `322424845 - a1` must be within the range `(1, 9)` or `(16, 21)`, and specifically `18` to trigger the execution of the shell in `decrypt()`.
 
-\[
+$$
 \begin{aligned}
-a1 &= 322424845 - 18 \\
-a1 &= 322424827 \\
+\text{a1} &= \text{322424845} - \text{18} \\
+\text{a1} &= \text{322424827} \\
 \end{aligned}
-\]
+$$
 
 ```c
 int test(int a1, 322424845)
