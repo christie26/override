@@ -1,7 +1,7 @@
 # level 4 <buffer overflow attack, return-to-libc>
 
 ## Overview
-The binary has `gets` function which has vulnerabilitu of `buffer overflow`. But there is also tracking system using `ptrace`, prevent running execve function in child process. Instead, we can use `return-to-libc` to go into the `libc` and run `system` with `/bin/sh`.
+The binary has `gets` function which has vulnerability of `buffer overflow`. But there is also tracking system using `ptrace`, prevent running execve function in child process. Instead, we can use `return-to-libc` to go into the `libc` and run `system` with `/bin/sh`.
 
 ## Steps
 
@@ -110,7 +110,7 @@ while ( v8 != 11 );
 puts("no exec() for you");
 kill(v9, 9);
 ```
-- The ptrace with 3(PTRACE_PEEKUSER) as first argument, reads data from the child process's user area.
+- The ptrace with 3`PTRACE_PEEKUSER` as first argument, reads data from the child process's user area.
 - The value 11 is significant as it corresponds to the system call number for `execve` in some architectures. This loop effectively monitors whether the child process has called `execve`.
 
 Tip! to debug multi-process program
