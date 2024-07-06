@@ -14,3 +14,6 @@ texttt
 xffffd
 rl
 SpellChecking
+Decompiling
+Decrypt
+bitwise
