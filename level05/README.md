@@ -2,7 +2,7 @@
 
 ## Overview
 
-The binary is a simple program that converts uppercase letters in the input to lowercase and then directly executes the string with `printf(s)`, allowing a **format string attack**. However, it terminates the program with exit(0), preventing us from redirecting the flow of the program by modifying the `EIP`. Instead, we need to overwrite the **Global Offset Table** `exit` address to point to a **shellcode** stored in an environment variable (`envp`).
+The binary is a simple program that converts uppercase letters in the input to lowercase and then directly executes the string with `printf(s)`, allowing a **format string attack**. However, it terminates the program with `exit(0)`, preventing us from redirecting the flow of the program by modifying the `EIP`. Instead, we need to overwrite the **Global Offset Table** `exit` address to point to a **shellcode** stored in an environment variable (`envp`).
 
 ### Main Function
 
