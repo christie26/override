@@ -24,7 +24,10 @@ BOOL __cdecl auth(int a1, int a2)
         return 1;
       v4 += (v4 ^ (unsigned int)*(char *)(a1 + i)) % 0x539;
     }
-    return a2 != v4;
+    // we should guess valuse of v4 and put it in a2
+    // avoiding if statement
+    return a2 != v4; 
+    //  we want it false
   }
 }
 

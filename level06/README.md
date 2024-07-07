@@ -24,6 +24,16 @@ with this function they get len of string before "\n" occurs.
 #### movb
 `movb   $0x0,(%eax)` will change first bytes of `0xffffd63c` + `resulf of strcspn`
 
+##### variables
+`0x8(%ebp)` = `Login` = `0xffffd63c`\
+`-0xc(%ebp)` = `v5` = result of `strnlen(a1, 32)`\
+`-0x10(%ebp)` = `v4`
+`-0x14(%ebp)` = `i`
+
+`0x1337` = `0001001100110111`
+#### if statemnt
+from `0xffffd63c`, `v5` bytes should be smaller than 31
+
 ```
 0x8048748 <auth>        push   %ebp
 0x8048749 <auth+1>      mov    %esp,%ebp
@@ -63,6 +73,7 @@ with this function they get len of string before "\n" occurs.
 0x80487de <auth+150>    call   0x8048590 <puts@plt>
 0x80487e3 <auth+155>    mov    $0x1,%eax
 0x80487e8 <auth+160>    jmp    0x8048877 <auth+303>
+
 0x80487ed <auth+165>    mov    0x8(%ebp),%eax
 0x80487f0 <auth+168>    add    $0x3,%eax
 0x80487f3 <auth+171>    movzbl (%eax),%eax
@@ -72,6 +83,7 @@ with this function they get len of string before "\n" occurs.
 0x8048803 <auth+187>    mov    %eax,-0x10(%ebp)
 0x8048806 <auth+190>    movl   $0x0,-0x14(%ebp)
 0x804880d <auth+197>    jmp    0x804885b <auth+275>
+// else - if
 0x804880f <auth+199>    mov    -0x14(%ebp),%eax
 0x8048812 <auth+202>    add    0x8(%ebp),%eax
 0x8048815 <auth+205>    movzbl (%eax),%eax
@@ -79,6 +91,7 @@ with this function they get len of string before "\n" occurs.
 0x804881a <auth+210>    jg     0x8048823 <auth+219>
 0x804881c <auth+212>    mov    $0x1,%eax
 0x8048821 <auth+217>    jmp    0x8048877 <auth+303>
+// else - else
 0x8048823 <auth+219>    mov    -0x14(%ebp),%eax
 0x8048826 <auth+222>    add    0x8(%ebp),%eax
 0x8048829 <auth+225>    movzbl (%eax),%eax
@@ -99,9 +112,12 @@ with this function they get len of string before "\n" occurs.
 0x8048852 <auth+266>    mov    %edx,%eax
 0x8048854 <auth+268>    add    %eax,-0x10(%ebp)
 0x8048857 <auth+271>    addl   $0x1,-0x14(%ebp)
+
+// check for-loop
 0x804885b <auth+275>    mov    -0x14(%ebp),%eax
 0x804885e <auth+278>    cmp    -0xc(%ebp),%eax
 0x8048861 <auth+281>    jl     0x804880f <auth+199>
+
 0x8048863 <auth+283>    mov    0xc(%ebp),%eax
 0x8048866 <auth+286>    cmp    -0x10(%ebp),%eax
 0x8048869 <auth+289>    je     0x8048872 <auth+298>
