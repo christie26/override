@@ -1,4 +1,4 @@
-# level8
+# level8 Path Traversal
 
 ## Code
 ```c
@@ -17,7 +17,7 @@ There are 3 files they open in the binary.
 3. it opens a file name, `./backups/<argv[1]>`.
 
 ### `./backups`
-To make first `open` works, we should create `backups` directory in where we run the command. 
+To make first `open` work, we should create `backups` directory in where we run the command. 
 ```bash
 # bad example
 level08@OverRide:/tmp$ ~/level08 hi
@@ -29,7 +29,7 @@ ERROR: Failed to open hi # it's another problem. :)
 ```
 
 ### `argv[1]`
-To make second `open` works, we should create a file has same name of `argv[1]`.
+To make second `open` work, we should create a file has same name of `argv[1]`.
 ```bash 
 # bad example
 level08@OverRide:/tmp$ ~/level08 hi
@@ -40,12 +40,13 @@ level08@OverRide:/tmp$ ~/level08 hi
 level08@OverRide:/tmp$ cat backups/hi
 hello I'm hi
 ```
-They open the file we put as `argv[1]` and read it the contents and write them in `./backups/<argv[1]>`. 
-So we will try to read `.pass` file directly.
+
+They open the file we specify as argv[1], read its contents, and write them to `./backups/<argv[1]>`. So we will try to read the `.pass` file directly.
 
 ## Payload
 
-First, we should make all directory we need.
+First, we should create all necessary directories.
+
 ```bash
 level08@OverRide:/tmp$ mkdir -p ./backups/home/users/level09
 level08@OverRide:/tmp$ ls -Rl

@@ -1,4 +1,4 @@
-# level 6 \<bitwise and arithmetic manipulations>
+# level 6 bitwise and arithmetic manipulations
 
 ## Overview
 The binary gets Login as input and performs several bitwise and arithmetic manipulations to generate a serial number. They block the use of gdb, so we have to create our own program to calculate the serial number.

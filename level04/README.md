@@ -1,4 +1,4 @@
-# level 4 <buffer overflow attack, return-to-libc>
+# level 4 buffer overflow attack, return-to-libc
 
 ## Overview
 The binary has `gets` function which has vulnerability of `buffer overflow`. But there is also tracking system using `ptrace`, prevent running execve function in child process. Instead, we can use `return-to-libc` to go into the `libc` and run `system` with `/bin/sh`.
