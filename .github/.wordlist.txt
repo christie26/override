@@ -18,3 +18,4 @@ Decompiling
 Decrypt
 bitwise
 th
+xFFFFFFFF
