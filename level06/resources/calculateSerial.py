@@ -12,4 +12,4 @@ for char in login:
     char_value = ord(char)  # Get ASCII value of the character
     v4 += (v4 ^ char_value) % 0x539
 
-print(f'Serial: {v4}')
+print 'Serial: %s' % v4
