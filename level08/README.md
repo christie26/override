@@ -12,9 +12,9 @@
 ```
 There are 3 files they open in the binary.
 
-1. it opens `./backups/.log` with `write`.
-2. it opens `argv[1]` -> `stream` with `read`.
-3. it opens a file name, `./backups/<argv[1]>`.
+1. It opens `./backups/.log` with `write`.
+2. It opens `argv[1]` -> `stream` with `read`.
+3. It opens a file name, `./backups/<argv[1]>`.
 
 ### `./backups`
 To make first `open` work, we should create `backups` directory in where we run the command. 
@@ -41,7 +41,7 @@ level08@OverRide:/tmp$ cat backups/hi
 hello I'm hi
 ```
 
-They open the file we specify as argv[1], read its contents, and write them to `./backups/<argv[1]>`. So we will try to read the `.pass` file directly.
+They open the file we specify as `argv[1]`, read its contents, and write them to `./backups/<argv[1]>`. So we will try to read the `.pass` file directly.
 
 ## Payload
 
@@ -78,5 +78,10 @@ level08@OverRide:/tmp$ ~/level08 /home/users/level09/.pass
 Now it must be there!
 ```bash
 level08@OverRide:/tmp$ cat backups/home/users/level09/.pass
+fjAwpJNs2vvkFLRebEvAQ2hFZ4uQBWfHRsP62d8S
+```
+
+## Flag
+```
 fjAwpJNs2vvkFLRebEvAQ2hFZ4uQBWfHRsP62d8S
 ```

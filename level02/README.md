@@ -1,4 +1,4 @@
-# Level02 format string attack
+# Level02 Format String Attack
 
 ## Overview
 

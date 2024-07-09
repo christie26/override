@@ -1,4 +1,4 @@
-# level00 find input they want
+# level00 Find a password
 
 ## Overview
 level00 is simple. We can easily find the input they want from `asm`.
@@ -18,7 +18,7 @@ level00 is simple. We can easily find the input they want from `asm`.
 0x804850d <main+121>    movl   $0x8048651,(%esp)
 0x8048514 <main+128>    call   0x8048390 <puts@plt>
 ```
-It compares result of `scanf` with `0x149c` and if they are same value, they run `system("/bin/sh")`.
+It compares result of `scanf` with `0x149c` and if they are same, they run `system("/bin/sh")`.
 
 We just have to put `5276` as input. 
 
